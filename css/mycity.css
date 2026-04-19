@@ -1,0 +1,246 @@
+/* ======================================================
+  MYCITY PAGE – PRO VERSION
+  Bhagalpur · Silk City of Asia
+  Author: Amit Ku Yadav
+====================================================== */
+
+/* ── Variables ── */
+
+:root {
+  --india-green: #138808;
+  --india-saffron: #FF9933;
+}
+
+/* ── Page Wrapper ── */
+
+.city-page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 140px 40px 100px;
+  position: relative;
+}
+
+.city-page::before {
+  content: "";
+  position: fixed;
+  top: -200px;
+  right: -200px;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(19,136,8,0.12), transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+  animation: cityGlowMove 20s ease-in-out infinite alternate;
+}
+
+@keyframes cityGlowMove {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(80px); }
+}
+
+/* ── Hero ── */
+
+.city-hero {
+  text-align: center;
+  padding: 100px 40px;
+  border-radius: 32px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(19,136,8,0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(255,153,51,0.18), transparent 55%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.city-hero:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.25);
+}
+
+.city-hero h1 {
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -1.2px;
+  margin-bottom: 18px;
+  color: var(--india-green);
+  line-height: 1.1;
+}
+
+.city-intro {
+  font-size: 1rem;
+  max-width: 680px;
+  margin: auto;
+  line-height: 1.85;
+  opacity: 0.88;
+}
+
+/* ── Personal Nav ── */
+
+.personal-nav {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.personal-nav a {
+  position: relative;
+  text-decoration: none;
+  opacity: 0.7;
+  color: var(--india-green);
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+.personal-nav a:hover,
+.personal-nav a.active {
+  opacity: 1;
+  color: var(--india-saffron);
+}
+
+.personal-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--india-green), var(--india-saffron));
+  transition: width 0.3s ease;
+}
+
+.personal-nav a:hover::after,
+.personal-nav a.active::after { width: 100%; }
+
+/* ── Section System ── */
+
+.city-section {
+  margin-top: 100px;
+  position: relative;
+}
+
+.city-section h2 {
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.4px;
+  margin-bottom: 8px;
+  color: var(--india-green);
+}
+
+.city-section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin: 12px auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--india-green), var(--india-saffron));
+}
+
+/* ── City Grid ── */
+
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+/* ── City Cards ── */
+
+.city-card {
+  padding: 36px 32px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(19,136,8,0.2);
+  backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.city-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(19,136,8,0.12), rgba(255,153,51,0.1));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.city-card:hover::before { opacity: 1; }
+
+.city-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--india-green);
+  box-shadow: 0 24px 56px rgba(19,136,8,0.2);
+}
+
+.city-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--india-green);
+}
+
+.city-card p {
+  font-size: 0.92rem;
+  line-height: 1.72;
+  opacity: 0.85;
+}
+
+.city-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--india-green);
+  text-decoration: none;
+  transition: color 0.25s ease, gap 0.2s ease;
+}
+
+.city-card a:hover {
+  color: var(--india-saffron);
+  gap: 8px;
+}
+
+/* ── Glass Section ── */
+
+.city-section.glass {
+  padding: 60px;
+  border-radius: 28px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(19,136,8,0.15);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+}
+
+/* ── Animations ── */
+
+.city-card,
+.city-section {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: cityFadeUp 0.55s ease forwards;
+}
+
+@keyframes cityFadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 768px) {
+  .city-page { padding: 140px 20px 80px; }
+  .city-hero { padding: 72px 20px; }
+  .city-section { margin-top: 72px; }
+  .city-section.glass { padding: 32px 20px; }
+  .city-card { padding: 28px 22px; }
+}

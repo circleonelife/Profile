@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Leadership In The Modern Era",
+    "category": "Leadership",
+    "excerpt": "Understanding leadership principles that guide modern organizations and governments.",
+    "image": "/logo/day-logo.png",
+    "url": "/blog/leadership-modern-era.html",
+    "date": "2026-03-01"
+  },
+  {
+    "title": "Technology & Future Systems",
+    "category": "Technology",
+    "excerpt": "How emerging technologies will shape governance, society, and economic systems.",
+    "image": "/logo/day-logo.png",
+    "url": "/blog/technology-future-systems.html",
+    "date": "2026-02-15"
+  },
+  {
+    "title": "Governance In The Digital Age",
+    "category": "Governance",
+    "excerpt": "Exploring policy frameworks, leadership structure, and the future of digital governance.",
+    "image": "/logo/day-logo.png",
+    "url": "/blog/governance-digital-age.html",
+    "date": "2026-02-01"
+  },
+  {
+    "title": "The Power Of Long-Term Thinking",
+    "category": "Strategy",
+    "excerpt": "Why long-term strategic thinking is the foundation of powerful leadership.",
+    "image": "/logo/day-logo.png",
+    "url": "/blog/long-term-thinking.html",
+    "date": "2026-01-20"
+  }
+]

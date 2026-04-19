@@ -1,0 +1,346 @@
+/* ======================================================
+   SOCIAL PAGE
+   Author: Amit Ku Yadav
+====================================================== */
+
+/* ── Hero ── */
+
+.social-hero {
+  padding: 80px 0 72px;
+  max-width: 860px;
+  position: relative;
+}
+
+.social-hero h1 {
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  line-height: 1.06;
+  letter-spacing: -2px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.social-tagline {
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 580px;
+  opacity: 0.8;
+  margin-bottom: 32px;
+}
+
+.social-hero::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -200px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(4,106,56,0.12), transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.social-hero .hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Hero buttons – shared for professional & social */
+
+.hero-btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.hero-btn.primary {
+  background: linear-gradient(135deg, var(--brand-green), var(--brand-orange));
+  color: #fff;
+}
+
+.hero-btn.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(4,106,56,0.3), 0 8px 18px rgba(255,103,31,0.2);
+}
+
+.hero-btn.secondary {
+  border: 1px solid var(--brand-green);
+  color: var(--brand-green);
+}
+
+.hero-btn.secondary:hover {
+  background: var(--brand-green);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ── Section Titles ── */
+
+.social-platforms,
+.social-extended,
+.social-note,
+.social-posts,
+.social-content {
+  padding: 0 0 72px;
+}
+
+.social-platforms h2,
+.social-extended h2,
+.social-posts h2 {
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  margin-bottom: 32px;
+}
+
+/* ── Platform Cards ── */
+
+.social-platforms .life-grid {
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px;
+  padding-top: 0;
+}
+
+.page-social .life-card {
+  padding: 36px 28px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+
+/* Platform top-bar accent */
+.page-social .life-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 0;
+  background: var(--gradient-brand);
+}
+
+.page-social .life-card[href*="facebook"]::after  { background: #1877F2; }
+.page-social .life-card[href*="instagram"]::after { background: linear-gradient(90deg, #f09433, #dc2743, #bc1888); }
+.page-social .life-card[href*="youtube"]::after   { background: #FF0000; }
+.page-social .life-card[href*="wa.me"]::after     { background: #25D366; }
+
+.page-social .life-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.page-social .life-card p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  flex: 1;
+}
+
+.page-social .life-action {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--brand-green);
+  margin-top: auto;
+}
+
+.page-social .life-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.18);
+}
+
+/* ── Social Note ── */
+
+.social-note.glass {
+  padding: 36px 44px;
+  border-radius: 20px;
+}
+
+.social-note p {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  max-width: 680px;
+}
+
+/* ── Social Content (posts) ── */
+
+.social-content {
+  padding-bottom: 80px;
+}
+
+/* ── Post Grid ── */
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.post-card {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+body.theme-dark .post-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+body.theme-light .post-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.post-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.18);
+}
+
+/* Post header */
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.post-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-header strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.post-header span {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.55;
+}
+
+/* Platform badge bar */
+.youtube-post  .post-header { border-top: 3px solid #FF0000; }
+.instagram-post .post-header { border-top: 3px solid #E1306C; }
+.facebook-post .post-header  { border-top: 3px solid #1877F2; }
+
+/* Post image */
+
+.post-image {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.youtube-post  .post-image { aspect-ratio: 16 / 9; }
+.instagram-post .post-image { aspect-ratio: 1 / 1; }
+.facebook-post .post-image  { aspect-ratio: 4 / 3; }
+
+/* YouTube play overlay */
+
+.yt-play {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 56px; height: 40px;
+  background: rgba(255,0,0,0.9);
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.yt-play::before {
+  content: "";
+  border-left: 14px solid #fff;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  margin-left: 3px;
+}
+
+.youtube-post:hover .yt-play {
+  transform: translate(-50%, -50%) scale(1.12);
+  background: #ff0000;
+}
+
+/* Post caption */
+
+.post-caption {
+  padding: 10px 16px 16px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+/* ── Extended Presence ── */
+
+.social-extended .life-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 24px;
+  padding-top: 0;
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 900px) {
+  .social-platforms .life-grid,
+  .post-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .social-hero {
+    padding: 60px 0 56px;
+  }
+
+  .social-hero h1 {
+    font-size: 2.2rem;
+    letter-spacing: -0.8px;
+  }
+
+  .social-hero .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .social-platforms .life-grid,
+  .post-grid,
+  .social-extended .life-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .social-note.glass {
+    padding: 24px 20px;
+  }
+}
