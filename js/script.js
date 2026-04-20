@@ -110,7 +110,14 @@ function updateStatus() {
   const el = $("status");
   if (!el) return;
 
-  const hour = new Date().getHours();
+  const hour = parseInt(
+    new Date().toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "numeric",
+      hour12: false
+    }),
+    10
+  );
   el.textContent =
     hour >= 10 && hour < 22 ? "STATUS: ACTIVE" : "STATUS: OFFLINE";
 }
@@ -217,7 +224,11 @@ function initMobileHeader() {
 
 function initScrollReveal() {
   const elements = document.querySelectorAll(
-    ".connect-card, .page-intro, .contact-library-item"
+    ".life-card, .service-card, .blog-card, .connect-card, " +
+    ".contact-library-item, .pro-value-card, .pro-card, " +
+    ".hosting-card, .city-card, .timeline li, .page-intro, " +
+    ".personal-section, .city-section, .capability-statement, " +
+    ".pro-stats, .services-library-item, .partner-card"
   );
   if (!elements.length) return;
 
@@ -230,13 +241,52 @@ function initScrollReveal() {
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0, rootMargin: "0px 0px -40px 0px" }
   );
 
-  elements.forEach((el, index) => {
-    el.classList.add("reveal", `delay-${index % 4}`);
+  /* Group siblings inside same parent for stagger */
+  const seen = new Map();
+  elements.forEach(el => {
+    const parent = el.parentElement;
+    const count = seen.get(parent) ?? 0;
+    el.classList.add("reveal", `delay-${count % 4}`);
+    seen.set(parent, count + 1);
     observer.observe(el);
   });
+}
+
+/* ======================================================
+   ANIMATED COUNTERS (pro stats)
+====================================================== */
+
+function initCounters() {
+  const stats = document.querySelectorAll(".pro-stat-num");
+  if (!stats.length) return;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const textNode = [...el.childNodes].find(n => n.nodeType === 3);
+      if (!textNode) return;
+      const target = parseInt(textNode.textContent, 10);
+      if (isNaN(target)) return;
+
+      let start = null;
+      const duration = 1400;
+      const tick = ts => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        textNode.textContent = Math.round(eased * target);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.7 });
+
+  stats.forEach(el => observer.observe(el));
 }
 
 /* ======================================================
@@ -420,21 +470,21 @@ function initEnquiryForm() {
     };
 
     try {
-      const response = await fetch("https://kingofyadav.in/api/enquiry", {
+      const response = await fetch("https://formspree.io/f/xwvaodjy", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(formData)
       });
 
       if (response.ok) {
-        alert("Enquiry Submitted Successfully");
+        alert("Enquiry submitted. I'll reply within 24–48 hours.");
         this.reset();
         closeEnquiry();
       } else {
-        alert("Submission Failed. Please email kingofyadav.in@gmail.com directly.");
+        alert("Submission failed. Please email kingofyadav.in@gmail.com directly.");
       }
     } catch {
-      alert("Submission Failed. Please email kingofyadav.in@gmail.com directly.");
+      alert("Network error. Please email kingofyadav.in@gmail.com directly.");
     }
   });
 }
@@ -474,28 +524,52 @@ function initBackToTop() {
    BLOG RENDERER (from blog-data.json)
 ====================================================== */
 
+function formatDate(dateStr) {
+  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const [year, month, day] = dateStr.split("-");
+  return `${parseInt(day)} ${months[parseInt(month) - 1]} ${year}`;
+}
+
 async function initBlogRenderer() {
   const grid = document.getElementById("blog-dynamic-grid");
   if (!grid) return;
 
-  try {
-    const res = await fetch("/blog-data.json");
-    const posts = await res.json();
+  /* Try relative path first (works with file:// and subdirectory servers),
+     fall back to absolute path for root-served setups */
+  const jsonPaths = ["../blog-data.json", "/blog-data.json", "blog-data.json"];
+  let posts = null;
 
-    grid.innerHTML = posts.map(post => `
-      <article class="blog-card">
-        <img src="${post.image}" alt="${post.title}" loading="lazy" width="640" height="360">
-        <div class="blog-card-content">
-          <span class="blog-category">${post.category}</span>
-          <h3>${post.title}</h3>
-          <p>${post.excerpt}</p>
-          <a href="${post.url}" class="blog-read">Read Article →</a>
-        </div>
-      </article>
-    `).join("");
-  } catch {
-    // Falls back to static HTML cards if JSON fails
+  for (const path of jsonPaths) {
+    try {
+      const res = await fetch(path);
+      if (res.ok) { posts = await res.json(); break; }
+    } catch { /* try next path */ }
   }
+
+  if (!posts || !posts.length) {
+    grid.innerHTML = `<p style="opacity:0.5;text-align:center;grid-column:1/-1;padding:2rem;">No articles found.</p>`;
+    return;
+  }
+
+  grid.innerHTML = posts.map(post => `
+    <article class="blog-card blog-card--in">
+      <img src="${post.image}" alt="${post.title}" loading="lazy" width="640" height="360">
+      <div class="blog-card-content">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <span class="blog-category">${post.category}</span>
+          <time style="font-size:0.72rem;opacity:0.45;font-weight:500;letter-spacing:0.3px;">${formatDate(post.date)}</time>
+        </div>
+        <h3>${post.title}</h3>
+        <p>${post.excerpt}</p>
+        <a href="${post.url}" class="blog-read">Read Article →</a>
+      </div>
+    </article>
+  `).join("");
+
+  /* Staggered fade-in that does NOT depend on IntersectionObserver */
+  grid.querySelectorAll(".blog-card--in").forEach((el, i) => {
+    el.style.animationDelay = `${i * 60}ms`;
+  });
 }
 
 /* ======================================================
@@ -513,6 +587,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initEnquiryForm();
   initMobileHeader();
   initScrollReveal();
+  initCounters();
   initParallax();
   initGlobalClickHandler();
   initServiceWorker();

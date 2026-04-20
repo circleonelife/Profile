@@ -156,9 +156,10 @@ Return Home
 Social
 </a>
 
-<button onclick="location.reload()" class="btn-offline">
+<button id="retryBtn" class="btn-offline">
 Retry Connection
 </button>
+<script>document.getElementById("retryBtn").addEventListener("click",function(){location.reload();});</script>
 
 </div>
 

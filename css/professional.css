@@ -313,3 +313,23 @@
     padding-bottom: 60px;
   }
 }
+
+/* ── Career Timeline Section ── */
+
+.professional-timeline {
+  max-width: 860px;
+  padding: 0 0 80px;
+}
+
+.professional-timeline h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .professional-timeline {
+    padding-bottom: 60px;
+  }
+}

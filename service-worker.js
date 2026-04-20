@@ -6,18 +6,10 @@
    Author: Amit Ku Yadav
 ====================================================== */
 
-/* ======================================================
-   1. VERSIONING
-====================================================== */
-
 const VERSION = "v6";
 const STATIC_CACHE = `ak-static-${VERSION}`;
 const DYNAMIC_CACHE = `ak-dynamic-${VERSION}`;
 const MAX_DYNAMIC_ITEMS = 80;
-
-/* ======================================================
-   2. CORE APP SHELL (ONLY CRITICAL FILES)
-====================================================== */
 
 const STATIC_ASSETS = [
   "/",
@@ -30,7 +22,7 @@ const STATIC_ASSETS = [
   "/css/components.css",
 
   /* JS */
-  "/script.js",
+  "/js/script.js",
 
   /* LOGO */
   "/logo/day-logo.png",
@@ -42,10 +34,6 @@ const STATIC_ASSETS = [
   "/favicon/android-chrome-512x512.png"
 ];
 
-/* ======================================================
-   3. INSTALL — Precache Core
-====================================================== */
-
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE)
@@ -53,10 +41,6 @@ self.addEventListener("install", (event) => {
       .then(() => self.skipWaiting())
   );
 });
-
-/* ======================================================
-   4. ACTIVATE — Clean Old Caches
-====================================================== */
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
@@ -70,30 +54,21 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-/* ======================================================
-   5. FETCH STRATEGIES
-====================================================== */
-
 self.addEventListener("fetch", (event) => {
   const { request } = event;
-
   if (request.method !== "GET") return;
-
   const url = new URL(request.url);
 
-  /* ------------------------------
-     A. HTML — Network First
-  ------------------------------ */
-
+  /* HTML — Network First */
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
-        .then(res => {
-          return caches.open(DYNAMIC_CACHE).then(cache => {
+        .then(res =>
+          caches.open(DYNAMIC_CACHE).then(cache => {
             cache.put(request, res.clone());
             return res;
-          });
-        })
+          })
+        )
         .catch(() =>
           caches.match(request).then(res => res || caches.match("/offline.html"))
         )
@@ -101,10 +76,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  /* ------------------------------
-     B. IMAGES — Stale While Revalidate
-  ------------------------------ */
-
+  /* Images — Stale While Revalidate */
   if (request.destination === "image") {
     event.respondWith(
       caches.match(request).then(cached => {
@@ -117,67 +89,49 @@ self.addEventListener("fetch", (event) => {
           }
           return res;
         }).catch(() => null);
-
         return cached || networkFetch;
       })
     );
     return;
   }
 
-  /* ------------------------------
-     C. CSS / JS / Fonts — Cache First
-  ------------------------------ */
-
+  /* CSS / JS / Fonts — Cache First */
   if (
     request.destination === "style" ||
     request.destination === "script" ||
     request.destination === "font"
   ) {
     event.respondWith(
-      caches.match(request).then(cached => {
-        return cached || fetch(request).then(res => {
-          return caches.open(DYNAMIC_CACHE).then(cache => {
+      caches.match(request).then(cached =>
+        cached || fetch(request).then(res =>
+          caches.open(DYNAMIC_CACHE).then(cache => {
             cache.put(request, res.clone());
             limitCacheSize(DYNAMIC_CACHE, MAX_DYNAMIC_ITEMS);
             return res;
-          });
-        });
-      })
+          })
+        )
+      )
     );
     return;
   }
 
-  /* ------------------------------
-     D. External Requests (CDN etc.)
-  ------------------------------ */
-
+  /* External requests */
   if (url.origin !== location.origin) {
     event.respondWith(
       fetch(request).catch(() => caches.match("/offline.html"))
     );
-    return;
   }
 });
-
-/* ======================================================
-   6. CACHE SIZE CONTROL
-====================================================== */
 
 function limitCacheSize(name, size) {
   caches.open(name).then(cache => {
     cache.keys().then(keys => {
       if (keys.length > size) {
-        cache.delete(keys[0]).then(() =>
-          limitCacheSize(name, size)
-        );
+        cache.delete(keys[0]).then(() => limitCacheSize(name, size));
       }
     });
   });
 }
-
-/* ======================================================
-   7. SKIP WAITING (Update Control)
-====================================================== */
 
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {

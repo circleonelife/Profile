@@ -236,10 +236,22 @@
   box-shadow: 0 20px 48px rgba(4,106,56,0.18);
 }
 
-/* ── Services Grid: auto-fit for 4 cards ── */
+/* ── Services Grid: 3-col auto for any count ── */
 
 .services-grid--auto {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 900px) {
+  .services-grid--auto {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .services-grid--auto {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ── Hosting Plans Section ── */
@@ -500,5 +512,100 @@ body.theme-light .hosting-card {
   .services-hero .hero-actions {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+/* ── FAQ Section ── */
+
+.services-faq {
+  padding: 0 8% 120px;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.faq-header h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0.4rem 0 0.8rem;
+}
+
+.faq-header p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Two-Column Q&A Grid */
+
+.faq-grid {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.faq-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 2rem 3rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid rgba(128,128,128,0.12);
+  align-items: start;
+}
+
+.faq-row:last-child {
+  border-bottom: none;
+}
+
+.faq-q {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.faq-num {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--brand-green), var(--brand-orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.faq-q h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+  margin: 0;
+}
+
+.faq-a p {
+  font-size: 0.92rem;
+  line-height: 1.8;
+  margin: 0;
+  opacity: 0.75;
+}
+
+@media (max-width: 700px) {
+  .faq-row {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 1.5rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .services-faq {
+    padding: 0 6% 80px;
   }
 }

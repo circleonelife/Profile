@@ -1,6 +1,6 @@
 /* ======================================================
-  BLOG PAGE – PRO VERSION
-  Author: Amit Ku Yadav
+   BLOG PAGE – PRO RESPONSIVE LAYOUT
+   Desktop → Tablet → Mobile → Small → XS
 ====================================================== */
 
 .blog-page {
@@ -8,10 +8,13 @@
   overflow-x: hidden;
 }
 
-/* ── Hero ── */
+
+/* ======================================================
+   1. HERO
+====================================================== */
 
 .blog-hero {
-  padding: 180px 8% 120px;
+  padding: clamp(110px, 14vw, 180px) clamp(20px, 6%, 100px) clamp(64px, 8vw, 120px);
   position: relative;
 }
 
@@ -23,19 +26,19 @@
 }
 
 .blog-hero h1 {
-  font-size: clamp(3rem, 6vw, 4.5rem);
-  line-height: 1.05;
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
+  line-height: 1.08;
   font-weight: 800;
-  letter-spacing: -2px;
-  margin-bottom: 24px;
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
 }
 
 .blog-hero .hero-description {
   max-width: 620px;
-  font-size: 1.05rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
   line-height: 1.75;
   opacity: 0.85;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 .blog-hero::before {
@@ -48,16 +51,17 @@
   background: radial-gradient(circle, rgba(4,106,56,0.15), transparent 70%);
   filter: blur(80px);
   z-index: -1;
+  pointer-events: none;
 }
 
 .hero-actions {
   display: flex;
-  gap: 16px;
+  gap: 14px;
   flex-wrap: wrap;
 }
 
 .hero-btn {
-  padding: 13px 28px;
+  padding: 12px 26px;
   border-radius: 999px;
   font-size: 0.82rem;
   font-weight: 600;
@@ -88,7 +92,10 @@
   transform: translateY(-3px);
 }
 
-/* ── Blog Category Pills ── */
+
+/* ======================================================
+   2. CATEGORY PILLS
+====================================================== */
 
 .blog-category {
   display: inline-block;
@@ -103,24 +110,31 @@
   border: 1px solid var(--brand-green-soft);
 }
 
-/* ── Featured Blog Grid ── */
+
+/* ======================================================
+   3. FEATURED BLOG GRID
+====================================================== */
 
 .blog-grid {
-  padding: 0 8% 120px;
+  padding: 0 clamp(16px, 6%, 100px) clamp(56px, 8vw, 120px);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
-/* ── Blog Card ── */
+
+/* ======================================================
+   4. BLOG CARD
+====================================================== */
 
 .blog-card {
-  border-radius: 24px;
+  border-radius: 22px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   position: relative;
+  text-decoration: none;
 }
 
 body.theme-dark .blog-card {
@@ -139,26 +153,25 @@ body.theme-light .blog-card {
   box-shadow: 0 24px 56px rgba(0,0,0,0.3), 0 0 0 1px var(--brand-green-soft);
 }
 
-/* Card image */
-
+/* Card image — aspect-ratio based so it adapts at all sizes */
 .blog-card img {
   width: 100%;
-  height: 190px;
+  aspect-ratio: 16 / 9;
+  height: auto;
   object-fit: cover;
   display: block;
 }
 
 /* Card content */
-
 .blog-card-content {
-  padding: 32px 28px 28px;
+  padding: 28px 24px 24px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .blog-card h3 {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: -0.2px;
   margin-bottom: 10px;
@@ -166,7 +179,7 @@ body.theme-light .blog-card {
 }
 
 .blog-card p {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.65;
   opacity: 0.8;
   flex: 1;
@@ -180,27 +193,30 @@ body.theme-light .blog-card {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--brand-green);
+  text-decoration: none;
   transition: gap 0.2s ease;
   margin-top: auto;
 }
 
 .blog-read:hover { gap: 10px; }
 
-/* ── Blog Library ── */
+
+/* ======================================================
+   5. BLOG LIBRARY
+====================================================== */
 
 .blog-library {
-  padding: 0 8% 120px;
   border-top: 1px solid rgba(128,128,128,0.12);
-  padding-top: 100px;
+  padding: clamp(56px, 7vw, 100px) clamp(16px, 6%, 100px) clamp(56px, 8vw, 120px);
 }
 
 .blog-library .page-intro {
   max-width: 680px;
-  margin-bottom: 60px;
+  margin-bottom: 52px;
 }
 
 .blog-library .page-intro h2 {
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 700;
   letter-spacing: -0.8px;
   margin-bottom: 14px;
@@ -214,19 +230,20 @@ body.theme-light .blog-card {
 
 .blog-library-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
 }
 
 .blog-library-item {
-  padding: 40px 32px;
-  border-radius: 22px;
+  padding: 36px 28px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
 }
 
 body.theme-dark .blog-library-item {
@@ -256,48 +273,168 @@ body.theme-light .blog-library-item {
 }
 
 .blog-library-item h3 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
+  line-height: 1.35;
 }
 
 .blog-library-item p {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.65;
   opacity: 0.8;
   flex: 1;
 }
 
-/* ── Animation ── */
+
+/* ======================================================
+   6. ANIMATIONS
+====================================================== */
 
 @keyframes blogHeroReveal {
   from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Responsive ── */
-
-@media (max-width: 900px) {
-  .blog-grid,
-  .blog-library-grid { grid-template-columns: 1fr 1fr; }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 600px) {
-  .blog-hero { padding: 140px 6% 80px; }
+.blog-card--in {
+  animation: cardIn 0.5s ease both;
+}
 
-  .blog-grid,
-  .blog-library-grid {
-    grid-template-columns: 1fr;
-    padding: 0 6% 80px;
+
+/* ======================================================
+   7. RESPONSIVE BREAKPOINTS
+====================================================== */
+
+/* ── Wide tablet (max 1080px) ── */
+@media (max-width: 1080px) {
+  .blog-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+}
+
+/* ── Tablet (max 900px): 2-column grid ── */
+@media (max-width: 900px) {
+  .blog-grid {
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
 
-  .blog-library {
-    padding: 60px 6% 80px;
+  .blog-library-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Mobile large (max 640px) ── */
+@media (max-width: 640px) {
+  .blog-hero h1 {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    letter-spacing: -1px;
   }
 
-  .blog-hero h1 { font-size: 2.2rem; }
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .hero-btn {
+    width: 100%;
+    text-align: center;
+  }
 
-  .blog-card-content { padding: 24px 20px; }
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .blog-library-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .blog-card-content {
+    padding: 22px 18px 18px;
+  }
+
+  .blog-library-item {
+    padding: 28px 22px;
+  }
+}
+
+/* ── Mobile small (max 480px) ── */
+@media (max-width: 480px) {
+  .blog-hero h1 {
+    font-size: clamp(1.6rem, 7.5vw, 2rem);
+    letter-spacing: -0.5px;
+  }
+
+  .blog-hero .hero-description {
+    font-size: 0.92rem;
+  }
+
+  .blog-card h3 {
+    font-size: 1rem;
+  }
+
+  .blog-card p {
+    font-size: 0.85rem;
+  }
+
+  .blog-card-content {
+    padding: 18px 16px 16px;
+  }
+
+  .blog-library-item {
+    padding: 22px 18px;
+    gap: 8px;
+  }
+
+  .blog-library-item h3 {
+    font-size: 0.98rem;
+  }
+
+  .blog-library .page-intro h2 {
+    font-size: 1.7rem;
+  }
+
+  .blog-library .page-intro {
+    margin-bottom: 36px;
+  }
+}
+
+/* ── Very small (max 360px) ── */
+@media (max-width: 360px) {
+  .blog-hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-btn {
+    padding: 11px 20px;
+    font-size: 0.78rem;
+  }
+
+  .blog-card h3 {
+    font-size: 0.95rem;
+  }
+
+  .blog-card-content {
+    padding: 16px 14px;
+  }
+
+  .blog-library-item {
+    padding: 18px 14px;
+  }
+}
+
+
+/* ======================================================
+   8. LIGHT THEME OVERRIDES
+====================================================== */
+
+body.theme-light .blog-hero::before {
+  background: radial-gradient(circle, rgba(4,106,56,0.08), transparent 70%);
 }

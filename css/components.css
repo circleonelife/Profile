@@ -780,3 +780,195 @@ body.theme-dark .footer-right .theme-toggle {
     transform: translateY(0);
   }
 }
+
+/* ======================================================
+   TIMELINE COMPONENT
+====================================================== */
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--brand-green), var(--brand-orange));
+  opacity: 0.25;
+  border-radius: 2px;
+}
+
+.timeline li {
+  position: relative;
+  padding: 0 0 36px 44px;
+  margin: 0;
+}
+
+.timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand-green), var(--brand-orange));
+  box-shadow: 0 0 0 4px var(--brand-green-soft);
+  flex-shrink: 0;
+}
+
+.timeline li strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.timeline li p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ======================================================
+   LIFE ACTION (CARD CTA ARROW)
+====================================================== */
+
+.life-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--brand-green);
+  margin-top: auto;
+  padding-top: 4px;
+  transition: gap 0.22s ease, color 0.22s ease;
+}
+
+.life-card:hover .life-action,
+a.life-card:hover .life-action {
+  gap: 10px;
+  color: var(--brand-orange);
+}
+
+/* ======================================================
+   CONTACT LIBRARY GRID
+====================================================== */
+
+.contact-library-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 2rem;
+}
+
+.contact-library-item {
+  padding: 36px 32px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body.theme-dark .contact-library-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+body.theme-light .contact-library-item {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+}
+
+.contact-library-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-green), var(--brand-orange));
+}
+
+.contact-library-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(4,106,56,0.15);
+}
+
+.contact-library-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.contact-meta {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand-orange);
+  margin-bottom: 4px;
+}
+
+/* ======================================================
+   PAGE INTRO HEADER
+====================================================== */
+
+.page-intro {
+  /* Spacing is handled per-page in page-specific CSS */
+}
+
+/* ======================================================
+   SCROLL REVEAL ANIMATION SYSTEM
+====================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+              transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-0 { transition-delay: 0ms; }
+.delay-1 { transition-delay: 90ms; }
+.delay-2 { transition-delay: 180ms; }
+.delay-3 { transition-delay: 270ms; }
+
+/* ======================================================
+   RESPONSIVE ADDITIONS
+====================================================== */
+
+@media (max-width: 768px) {
+  .contact-library-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .timeline li {
+    padding-bottom: 28px;
+  }
+}
